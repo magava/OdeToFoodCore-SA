@@ -24,10 +24,21 @@ namespace OdeToFoodCore
                               IHostingEnvironment env,
                               IGreeter greeter)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+
+
+            /**
+             * The UseWelcomePage middleware responses to every request by default and 
+             * displays a simple welcome page. 
+             * The order in which you install middleware is very important. 
+             * The middleware we have inside of the app.Run, that displays a greeting. 
+             * will never display that greeting because the UseWelcomePage will never call 
+             * the next middleware.
+            **/
+            app.UseWelcomePage();
 
             app.Run(async (context) =>
             {
