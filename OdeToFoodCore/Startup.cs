@@ -34,11 +34,23 @@ namespace OdeToFoodCore
              * The UseWelcomePage middleware responses to every request by default and 
              * displays a simple welcome page. 
              * The order in which you install middleware is very important. 
-             * The middleware we have inside of the app.Run, that displays a greeting. 
+             * The middleware we have inside of the app.Run, that displays a greeting, 
              * will never display that greeting because the UseWelcomePage will never call 
              * the next middleware.
-            **/
-            app.UseWelcomePage();
+            */
+            //app.UseWelcomePage();
+
+
+
+            /** To solve the problem with UseWelcomePage above we can add an Options object to 
+             * the middleware.
+             * In this case we add WelcomePageOptions to UseWelcomePage which 
+             * only responses to the request with a path /wp
+            */
+            app.UseWelcomePage(new WelcomePageOptions {
+                Path = "/wp"     
+            });
+
 
             app.Run(async (context) =>
             {
