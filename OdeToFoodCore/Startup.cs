@@ -24,15 +24,18 @@ namespace OdeToFoodCore
                               IHostingEnvironment env,
                               IGreeter greeter)
         {
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 app.UseDeveloperExceptionPage();
-            }
+            //}
 
             app.Run(async (context) =>
             {
+                throw new Exception("Test Error");
+
                 var greeting = greeter.GetMessageOfTheDay();
                 await context.Response.WriteAsync(greeting);
+
             });
         }
     }
