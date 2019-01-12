@@ -41,9 +41,13 @@ namespace OdeToFoodCore
              * UseDefaultFiles will change the request path and then invoke the next middleware,
              * which is UseStaticFiles, which will serve up the content.
              */
-            app.UseDefaultFiles();
+            //app.UseDefaultFiles();
 
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
+
+
+            // UseFileServer installs the DefaultFiles and StaticFiles middlewares
+            app.UseFileServer();
            
             app.Run(async (context) =>
             {
