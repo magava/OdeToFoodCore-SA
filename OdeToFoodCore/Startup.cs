@@ -28,6 +28,8 @@ namespace OdeToFoodCore
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
            
             app.Run(async (context) =>
             {
