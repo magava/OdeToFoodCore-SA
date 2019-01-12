@@ -28,11 +28,7 @@ namespace OdeToFoodCore
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler();
-            }
-
+           
             app.Run(async (context) =>
             {
                 var greeting = greeter.GetMessageOfTheDay();
