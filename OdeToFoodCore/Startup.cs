@@ -32,8 +32,16 @@ namespace OdeToFoodCore
           
             app.UseStaticFiles();
 
+
+            /** After adding app.UseMvcWithDefaultRoute() we'll get the following error.
+             * An error occurred while starting the application.
+             * InvalidOperationException: Unable to find the required services. 
+             * Please add all the required services by calling 'IServiceCollection.AddMvc' inside the call to 'ConfigureServices(...)' 
+             * in the application startup code.
+            */
             app.UseMvcWithDefaultRoute();
        
+
             app.Run(async (context) =>
             {
                 var greeting = greeter.GetMessageOfTheDay();
