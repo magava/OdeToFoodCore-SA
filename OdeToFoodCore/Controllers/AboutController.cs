@@ -6,7 +6,7 @@ namespace OdeToFoodCore.Controllers
     // We want the Phone action to be the default action for this controller
 
 
-    [Route("about")]
+    [Route("[controller]")]
     public class AboutController
     {
         [Route("")]
@@ -16,7 +16,7 @@ namespace OdeToFoodCore.Controllers
         }
 
 
-        [Route("adress")]
+        [Route("[action]")]
         public string Address()
         {
             return "USA";
