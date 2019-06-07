@@ -6,15 +6,6 @@ namespace OdeToFoodCore.Controllers
     // We want the Phone action to be the default action for this controller
 
 
-
-    // MVC framework will go to AboutController but as there are two public methods
-    // it doesn't know which one to execute when we go to /about and we'll get
-    // AmbiguousActionException: Multiple actions matched. 
-    // The following actions matched route data and had all constraints satisfied:
-    // OdeToFoodCore.Controllers.AboutController.Phone(OdeToFoodCore)
-    // OdeToFoodCore.Controllers.AboutController.Address(OdeToFoodCore)
-
-
     [Route("about")]
     public class AboutController
     {
@@ -25,6 +16,7 @@ namespace OdeToFoodCore.Controllers
         }
 
 
+        [Route("adress")]
         public string Address()
         {
             return "USA";
