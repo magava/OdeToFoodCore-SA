@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,15 +35,33 @@ namespace OdeToFoodCore
             app.UseStaticFiles();
 
 
-            // There are no routes configured.
-            // MVC framework doesn't know how to map this request to specific controller.
-            app.UseMvc();
+            app.UseMvc(ConfigureRoutes);
        
             app.Run(async (context) =>
             {
                 var greeting = greeter.GetMessageOfTheDay();
                 await context.Response.WriteAsync("Not Found is fine");
             });
+        }
+
+
+        // Defines a route for the application with a given template 
+        // The template will be used for controller instantiation and method invocation
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+            // We want to map the incoming request like /Home/Index to the Index action 
+            // of HomeController
+            // The controller's name can be found in the first part of the URL
+            // The action's name can be found in the second part of the URL
+
+            //routeBuilder.MapRoute("Default", "{controller}/{action}");
+
+            // Controller that has to look up a record in a database needs an identifier
+            //routeBuilder.MapRoute("Default", "{controller}/{action}/{id}");
+
+            // The third part is optional
+            routeBuilder.MapRoute("Default", "{controller}/{action}/{id?}");
+
         }
     }
 }
