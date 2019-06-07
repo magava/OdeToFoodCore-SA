@@ -60,7 +60,13 @@ namespace OdeToFoodCore
             //routeBuilder.MapRoute("Default", "{controller}/{action}/{id}");
 
             // The third part is optional
-            routeBuilder.MapRoute("Default", "{controller}/{action}/{id?}");
+            // This will print "Not Found is fine" when we go to the root of the website
+            //routeBuilder.MapRoute("Default", "{controller}/{action}/{id?}");
+
+
+            // With this default conventional route we can reach HomeController's Index action
+            // by going to the root of the website or by going to /home
+            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}");
 
         }
     }
