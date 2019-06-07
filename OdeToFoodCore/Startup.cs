@@ -56,8 +56,10 @@ namespace OdeToFoodCore
 
             //routeBuilder.MapRoute("Default", "{controller}/{action}");
 
+
             // Controller that has to look up a record in a database needs an identifier
             //routeBuilder.MapRoute("Default", "{controller}/{action}/{id}");
+
 
             // The third part is optional
             // This will print "Not Found is fine" when we go to the root of the website
