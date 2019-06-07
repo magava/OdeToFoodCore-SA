@@ -33,12 +33,15 @@ namespace OdeToFoodCore
           
             app.UseStaticFiles();
 
-            app.UseMvcWithDefaultRoute();
+
+            // There are no routes configured.
+            // MVC framework doesn't know how to map this request to specific controller.
+            app.UseMvc();
        
             app.Run(async (context) =>
             {
                 var greeting = greeter.GetMessageOfTheDay();
-                await context.Response.WriteAsync($"{greeting} : {env.EnvironmentName}");
+                await context.Response.WriteAsync("Not Found is fine");
             });
         }
     }
