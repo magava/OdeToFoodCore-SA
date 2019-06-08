@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OdeToFoodCore.Models;
 
 namespace OdeToFoodCore.Controllers
 {
@@ -12,15 +13,11 @@ namespace OdeToFoodCore.Controllers
 
     public class HomeController : Controller
     {
-        /**
-         * The ActionResult like Content doesn't immediately write into response
-         * It'll return IActionResult that tells the MVC framework what to do next
-         * Here we separate deciding what to do and actually doing that thing
-         * Here we're deciding to render Content
-         */
+       
         public IActionResult Index()
-        {     
-            return Content("Hello from in HomeController using IActionResult!!!");
+        {
+            var model = new Restaurant { Id = 1, Name = "Pizza Place" };
+            return new ObjectResult(model);
         }
     }
 }
