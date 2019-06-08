@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace OdeToFoodCore.Controllers
 {
@@ -13,11 +10,17 @@ namespace OdeToFoodCore.Controllers
      * We'll see "Hello from HomeController!!!" when go to the root.
     */
 
-    public class HomeController
+    public class HomeController : Controller
     {
-        public string Index()
-        {
-            return "Hello from HomeController!!!";
+        /**
+         * The ActionResult like Content doesn't immediately write into response
+         * It'll return IActionResult that tells the MVC framework what to do next
+         * Here we separate deciding what to do and actually doing that thing
+         * Here we're deciding to render Content
+         */
+        public IActionResult Index()
+        {     
+            return Content("Hello from in HomeController using IActionResult!!!");
         }
     }
 }
