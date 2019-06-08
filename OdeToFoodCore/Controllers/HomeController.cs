@@ -17,7 +17,7 @@ namespace OdeToFoodCore.Controllers
         public IActionResult Index()
         {
             var model = new Restaurant { Id = 1, Name = "Pizza Place" };
-            return new ObjectResult(model);
+            return View();
         }
     }
 }
