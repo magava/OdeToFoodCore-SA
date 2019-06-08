@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace OdeToFoodCore
+namespace OdeToFoodCore.Services
 {
     public interface IGreeter
     {
