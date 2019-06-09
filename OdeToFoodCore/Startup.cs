@@ -65,6 +65,7 @@ namespace OdeToFoodCore
 
             // With this default conventional route we can reach HomeController's Index action
             // by going to the root of the website or by going to /home
+            // /Home/Index/4
             routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}");
 
         }
