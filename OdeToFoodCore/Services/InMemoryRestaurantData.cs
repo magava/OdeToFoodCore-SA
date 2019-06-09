@@ -18,10 +18,29 @@ namespace OdeToFoodCore.Services
             };
         }
 
+
+        /**
+         * Here we're dealing with a service that holds the restaurant data in memory in a list.
+         * We're modifying that list.
+         * We want every Http request that comes to the application to see the same list.
+         * 
+         * To do this we've changed the Scoped lifetime of the InMemoryRestaurantData service 
+         * to Singleton via services.AddSingleton in ConfigureServices.
+         * This should be used for test in development, not in production.
+         */
+        public Restaurant Add(Restaurant restaurant)
+        {
+            restaurant.Id = restaurants.Max(r => r.Id) + 1;
+            restaurants.Add(restaurant);
+            return restaurant;
+        }
+
+
         public Restaurant Get(int id)
         {
             return restaurants.FirstOrDefault(r => r.Id == id);
         }
+
 
         public IEnumerable<Restaurant> GetAll()
         {

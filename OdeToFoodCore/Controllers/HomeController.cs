@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OdeToFoodCore.Models;
 using OdeToFoodCore.Services;
 using OdeToFoodCore.ViewModels;
 
@@ -103,7 +104,13 @@ namespace OdeToFoodCore.Controllers
         public IActionResult Create(RestaurantEditModel model)
         {
             // We should copy the information from input model to a restaurant
-            return Content("POST");
+            var newRestaurant = new Restaurant();
+            newRestaurant.Name = model.Name;
+            newRestaurant.Cuisine = model.Cuisine;
+
+            newRestaurant = restaurantData.Add(newRestaurant);
+
+            return View("Details", newRestaurant);
         }
     }
 }
