@@ -64,11 +64,46 @@ namespace OdeToFoodCore.Controllers
          * Here we don't need any parameters or view models for creating a restaurant.
          * Also pay attention that even though we don't pass a model into the view 
          * we use @model OdeToFoodCore.Models.Restaurant in Create.cshtml, which is the 
-         * type of the model that we manipulate
+         * type of the model that we manipulate.
+         * 
+         * This Create should respond to HTTP Get request (/Home/Create)
          */
+
+        
         public IActionResult Create()
         {
             return View();
+        }
+
+
+
+        /**
+         * When the user clicks on the submit button(e.g Save in Create view)
+         * the form that we've rendered will create a HTTP Post that goes back to
+         * /Home/Create and includes Name and Cuisine values. We want to capture 
+         * these values and save them.
+         * 
+         * Because this comes back to Create action, we add another version of Create.
+         * This version needs to take an input model.
+         * 
+         * We could use Restaurant as an input model aka IActionResult Create(Restaurant res)
+         * Restaurant has Name property and Cuisine property, so MVC Framework would be able to
+         * map the form's values into the object.
+         * But it'll try to map everything tat is in the object, which is not safe as you could
+         * add additional posted form values to Http request.
+         * This is called overposting, when you're receiving more information in Http request 
+         * than you're expecting.
+         * 
+         * You should create a dedicated input model that only contains the properties you'd
+         * expect to post from the form. 
+         * We've created RestaurantEditModel for that.
+         * 
+         */
+
+        public IActionResult Create(RestaurantEditModel model)
+        {
+            // We should copy the information from input model to a restaurant
+            return Content("POST");
         }
     }
 }
