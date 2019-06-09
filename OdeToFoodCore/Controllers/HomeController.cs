@@ -60,6 +60,12 @@ namespace OdeToFoodCore.Controllers
 
 
 
+        /**
+         * Here we don't need any parameters or view models for creating a restaurant.
+         * Also pay attention that even though we don't pass a model into the view 
+         * we use @model OdeToFoodCore.Models.Restaurant in Create.cshtml, which is the 
+         * type of the model that we manipulate
+         */
         public IActionResult Create()
         {
             return View();
