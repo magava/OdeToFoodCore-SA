@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OdeToFoodCore.Services;
+using OdeToFoodCore.ViewModels;
 
 namespace OdeToFoodCore.Controllers
 {
@@ -14,15 +15,19 @@ namespace OdeToFoodCore.Controllers
     public class HomeController : Controller
     {
         private IRestaurantData restaurantData;
+        private IGreeter greeter;
 
-        public HomeController(IRestaurantData restaurantData)
+        public HomeController(IRestaurantData restaurantData, IGreeter greeter)
         {
             this.restaurantData = restaurantData;
+            this.greeter = greeter;
         }
        
         public IActionResult Index()
         {
-            var model = restaurantData.GetAll();
+            var model = new HomeIndexViewModel();
+            model.Restaurants = restaurantData.GetAll();
+            model.CurrentMessage = greeter.GetMessageOfTheDay();
             return View(model);
         }
     }
