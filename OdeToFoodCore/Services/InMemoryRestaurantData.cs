@@ -18,6 +18,10 @@ namespace OdeToFoodCore.Services
             };
         }
 
+        public Restaurant Get(int id)
+        {
+            return restaurants.FirstOrDefault(r => r.Id == id);
+        }
 
         public IEnumerable<Restaurant> GetAll()
         {

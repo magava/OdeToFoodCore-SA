@@ -43,10 +43,19 @@ namespace OdeToFoodCore.Controllers
          * One of the places is inside routing data (/Home/Index/4). 
          * The third segment of the URL will be id.
          * 
+         * If we had id in the route and also id in a query string(e.g /home/details/3?id=1),
+         * we would get the one in the route (e.g. 3)
+         * The framework will look in routing data before it looks in a query string
+         * 
          */
         public IActionResult Details(int id)
         {
-            return Content(id.ToString());
+            var model = restaurantData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
         }
     }
 }
