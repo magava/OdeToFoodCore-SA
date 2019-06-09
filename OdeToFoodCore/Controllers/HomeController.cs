@@ -69,7 +69,7 @@ namespace OdeToFoodCore.Controllers
          * This Create should respond to HTTP Get request (/Home/Create)
          */
 
-        
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -99,7 +99,7 @@ namespace OdeToFoodCore.Controllers
          * We've created RestaurantEditModel for that.
          * 
          */
-
+        [HttpPost]
         public IActionResult Create(RestaurantEditModel model)
         {
             // We should copy the information from input model to a restaurant
