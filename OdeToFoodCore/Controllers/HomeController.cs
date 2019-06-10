@@ -99,37 +99,63 @@ namespace OdeToFoodCore.Controllers
          * expect to post from the form. 
          * We've created RestaurantEditModel for that.
          * 
+         * 
+         * Pay attention that the form in create view contains a hidden input 
+         * _RequestVerificationToken. We should check that we're verifying this token.
+         * For that we're using ValidateAntiForgeryToken.
          */
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(RestaurantEditModel model)
         {
             // We should copy the information from input model to a restaurant
-            var newRestaurant = new Restaurant();
-            newRestaurant.Name = model.Name;
-            newRestaurant.Cuisine = model.Cuisine;
-
-            newRestaurant = restaurantData.Add(newRestaurant);
 
             /**
-             * Our form will use HTTP POST to send newRestaurant data to the server.
-             * With View("Details", newRestaurant) server responds immediately with the
-             * details of the newRestaurant. 
-             * This can cause problems. If the user decides to refresh the browser, the
-             * browser will need to send another HTTP POST message to the application.
-             * That will try to add another restaurant to the data store again.
+             * Whenever we have an input model (e.g. RestaurantEditModel) to a controller
+             * action, not only the MVC Framework will try to bind the information that is in 
+             * Http request into our model, but the framework will apply validations based on
+             * data annotations. Any time the framework does the model binding, it also 
+             * produces a data structure called ModelState that gives information about that
+             * binding process.
              * 
-             * When you have a successful POST operation you respond to the POST with
-             * Redirect status code and tell the browser to send a new distinct GET request to
-             * read the new data from somewhere else.
-             * POST is for write operation. GET is for read operation.
-             * 
-             * By redirecting the client and having them issue a new GET request we can
-             * deliver a new page for reading
+             * We want to create a new restaurant and add that restaurant to the data source
+             * if ModelState is valid.
              */
+            if (ModelState.IsValid)
+            {
+                var newRestaurant = new Restaurant();
+                newRestaurant.Name = model.Name;
+                newRestaurant.Cuisine = model.Cuisine;
 
-            //return View("Details", newRestaurant);
+                newRestaurant = restaurantData.Add(newRestaurant);
 
-            return RedirectToAction(nameof(Details), new {id = newRestaurant.Id });
+                /**
+                 * Our form will use HTTP POST to send newRestaurant data to the server.
+                 * With View("Details", newRestaurant) server responds immediately with the
+                 * details of the newRestaurant. 
+                 * This can cause problems. If the user decides to refresh the browser, the
+                 * browser will need to send another HTTP POST message to the application.
+                 * That will try to add another restaurant to the data store again.
+                 * 
+                 * When you have a successful POST operation you respond to the POST with
+                 * Redirect status code and tell the browser to send a new distinct GET request to
+                 * read the new data from somewhere else.
+                 * POST is for write operation. GET is for read operation.
+                 * 
+                 * By redirecting the client and having them issue a new GET request we can
+                 * deliver a new page for reading
+                 * 
+                 * That's why we have written 
+                 * return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
+                 * istead of writing
+                 * return View("Details", newRestaurant);
+                 */
+                return RedirectToAction(nameof(Details), new { id = newRestaurant.Id });
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
