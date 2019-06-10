@@ -110,7 +110,26 @@ namespace OdeToFoodCore.Controllers
 
             newRestaurant = restaurantData.Add(newRestaurant);
 
-            return View("Details", newRestaurant);
+            /**
+             * Our form will use HTTP POST to send newRestaurant data to the server.
+             * With View("Details", newRestaurant) server responds immediately with the
+             * details of the newRestaurant. 
+             * This can cause problems. If the user decides to refresh the browser, the
+             * browser will need to send another HTTP POST message to the application.
+             * That will try to add another restaurant to the data store again.
+             * 
+             * When you have a successful POST operation you respond to the POST with
+             * Redirect status code and tell the browser to send a new distinct GET request to
+             * read the new data from somewhere else.
+             * POST is for write operation. GET is for read operation.
+             * 
+             * By redirecting the client and having them issue a new GET request we can
+             * deliver a new page for reading
+             */
+
+            //return View("Details", newRestaurant);
+
+            return RedirectToAction(nameof(Details), new {id = newRestaurant.Id });
         }
     }
 }
